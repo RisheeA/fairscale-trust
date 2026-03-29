@@ -139,7 +139,7 @@ function Metrics({ features, fairscoreBase, socialScore, tier, timestamp }) {
           <div className="t-label" style={{ color:'#b0a89e',marginBottom:4 }}>Ecosystem percentiles</div>
           <p style={{ fontSize:12,color:'var(--ink-4)',marginBottom:10 }}>How this wallet compares across 50K+ wallets</p>
           <div style={{ display:'flex',flexDirection:'column',gap:10 }}>
-            {PCTS.map(({key,label})=>{ const val=features?.[key]; if(val===undefined||val===null)return null; const pct=Math.round(val*100); const col=pct>=75?'var(--green)':pct>=50?'var(--amber)':'var(--ink-4)'; return (
+            {PCTS.map(({key,label})=>{ const val=features?.[key]; if(val===undefined||val===null)return null; const pct=Math.round(Math.max(0,Math.min(100,val??0))); const col=pct>=75?'var(--green)':pct>=50?'var(--amber)':'var(--ink-4)'; return (
               <div key={key}><div style={{ display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:5 }}><span style={{ fontSize:12,color:'var(--ink-3)' }}>{label}</span><span style={{ fontSize:11,color:col,fontWeight:600 }}>{percentileLabel(val)}</span></div><div style={{ height:3,background:'var(--paper-3)',borderRadius:2,overflow:'hidden' }}><div style={{ height:'100%',width:`${pct}%`,background:col,borderRadius:2,opacity:0.8 }}/></div></div>
             );})}
           </div>
@@ -147,7 +147,7 @@ function Metrics({ features, fairscoreBase, socialScore, tier, timestamp }) {
         <div>
           <div className="t-label" style={{ color:'#b0a89e',marginBottom:10 }}>Activity stats</div>
           <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr',gap:10 }}>
-            {[['Transactions',features?.tx_count?.toLocaleString()],['Active days',features?.active_days?`${features.active_days} days`:null],['Wallet age',features?.wallet_age_days?`${features.wallet_age_days} days`:null],['Median gap',features?.median_gap_hours?`${Number(features.median_gap_hours).toFixed(1)}h`:null]].filter(([,v])=>v).map(([l,v])=>(
+            {[['Transactions',features?.tx_count?.toLocaleString()],['Active days',features?.active_days?`${features.active_days} days`:null],['Wallet age score',features?.wallet_age_score!=null?`${features.wallet_age_score}/100`:null],['Conviction ratio',features?.conviction_ratio!=null?`${features.conviction_ratio}/100`:null],['Platform diversity',features?.platform_diversity!=null?`${features.platform_diversity}/100`:null],['Median hold days',features?.median_hold_days?`${features.median_hold_days} days`:null]].filter(([,v])=>v).map(([l,v])=>(
               <div key={l} style={{ background:'var(--paper)',border:'1px solid var(--border)',borderRadius:8,padding:'10px 14px' }}><div style={{ fontSize:11,color:'var(--ink-4)',marginBottom:4 }}>{l}</div><div style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:14,color:'var(--ink)',fontWeight:500 }}>{v}</div></div>
             ))}
           </div>
