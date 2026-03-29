@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────
+   FONTS
+   Drop Advercase .woff2 files into /public/fonts/
+   ───────────────────────────────────────────── */
+@font-face {
+  font-family: "Advercase";
+  src: url("/fonts/Advercase-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Advercase";
+  src: url("/fonts/Advercase-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap");
+
+/* ─────────────────────────────────────────────
+   BASE
+   ───────────────────────────────────────────── */
+:root {
+  --cream: #f5f0e8;
+  --gold: #b8924a;
+  --gold-light: #d4a853;
+  --near-black: #0e0d0a;
+  --surface-1: #141210;
+  --surface-2: #1c1916;
+  --surface-3: #242018;
+  --surface-4: #2e2920;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--near-black);
+  color: var(--cream);
+  font-family: "DM Sans", sans-serif;
+  min-height: 100vh;
+}
+
+/* ─────────────────────────────────────────────
+   SCROLLBAR
+   ───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--surface-1); }
+::-webkit-scrollbar-thumb { background: var(--surface-4); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* ─────────────────────────────────────────────
+   GRAIN OVERLAY
+   ───────────────────────────────────────────── */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.35;
+}
+
+/* ─────────────────────────────────────────────
+   GLASS SURFACE
+   ───────────────────────────────────────────── */
+.glass {
+  background: rgba(28, 25, 22, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(184, 146, 74, 0.12);
+}
+
+.glass-strong {
+  background: rgba(20, 18, 16, 0.85);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid rgba(184, 146, 74, 0.18);
+}
+
+/* ─────────────────────────────────────────────
+   GOLD GRADIENT TEXT
+   ───────────────────────────────────────────── */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #d4a853 0%, #b8924a 50%, #8a6a33 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─────────────────────────────────────────────
+   SHIMMER LOADING
+   ───────────────────────────────────────────── */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--surface-2) 25%,
+    var(--surface-3) 50%,
+    var(--surface-2) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ─────────────────────────────────────────────
+   SCORE RING ANIMATION
+   ───────────────────────────────────────────── */
+@keyframes scoreRingFill {
+  from { stroke-dashoffset: 565; }
+}
+
+/* ─────────────────────────────────────────────
+   STAGGERED FADE-UP ANIMATIONS
+   ───────────────────────────────────────────── */
+.animate-fade-up {
+  animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.delay-1 { animation-delay: 0.08s; }
+.delay-2 { animation-delay: 0.16s; }
+.delay-3 { animation-delay: 0.24s; }
+.delay-4 { animation-delay: 0.32s; }
+.delay-5 { animation-delay: 0.40s; }
+.delay-6 { animation-delay: 0.48s; }
+.delay-7 { animation-delay: 0.56s; }
+.delay-8 { animation-delay: 0.64s; }
+
+/* ─────────────────────────────────────────────
+   GLOW EFFECTS
+   ───────────────────────────────────────────── */
+.glow-gold {
+  box-shadow: 0 0 40px rgba(184, 146, 74, 0.15), 0 0 80px rgba(184, 146, 74, 0.05);
+}
+
+.glow-trust-high { box-shadow: 0 0 30px rgba(74, 222, 128, 0.12); }
+.glow-trust-medium { box-shadow: 0 0 30px rgba(251, 191, 36, 0.12); }
+.glow-trust-low { box-shadow: 0 0 30px rgba(248, 113, 113, 0.12); }
+
+/* ─────────────────────────────────────────────
+   WALLET INPUT
+   ───────────────────────────────────────────── */
+.wallet-input {
+  background: rgba(20, 18, 16, 0.8);
+  border: 1px solid rgba(184, 146, 74, 0.2);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wallet-input:focus {
+  outline: none;
+  border-color: rgba(184, 146, 74, 0.5);
+  box-shadow: 0 0 0 3px rgba(184, 146, 74, 0.08);
+}
+
+/* ─────────────────────────────────────────────
+   BUTTON STYLES
+   ───────────────────────────────────────────── */
+.btn-gold {
+  background: linear-gradient(135deg, #d4a853, #b8924a);
+  color: var(--near-black);
+  font-weight: 600;
+  transition: opacity 0.2s, transform 0.15s;
+}
+
+.btn-gold:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn-gold:active { transform: translateY(0); }
+.btn-gold:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+/* ─────────────────────────────────────────────
+   GRID BACKGROUND PATTERN
+   ───────────────────────────────────────────── */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(184, 146, 74, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184, 146, 74, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
